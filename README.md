@@ -1,34 +1,55 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Пример файловой структуры проекта
 
-## Getting Started
+1. Component – строительный блок.
+2. Widget – законченный ui элемент, несущий полезную нагрузку.
 
-First, run the development server:
+## Слои:
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+1. **Сore** – содержит код, не привязанный к фрэймворку. Код имеет только представление о предметной области (типы, интерфейсы, и прочее).
+2. **Shared** – содержит переиспользуемый код. (Компоненты, функции, классы и т.д.)
+3. **Widgets** - Компоненты связанные с предметной областью
+4. **Services** - модули реализующие бизнес-логику, хранение и получение данных и пр.
+5. **Templates** – Композиция из Widgets и Services. (страница)
+6. **App** – глобальные настройки приложения (глобальные стили, apollo client, error boundary, global context)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Entity
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Entity – каждая сущность хранится в своей папке, для порядка.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- [Entity] /
+  - Entity.tsx – react component
+  - Entity.module.scss – стили для компонента
+  - Entity.stories.tsx – документация компонента с помощью сторибук
+  - Entity.test.tsx – тесты для компонента
+  - Entity.utils.ts – функции необходимые для реализации внутреннего поведения компонента (разгружаем код компонента)
+  - Entity.hooks.ts – хуки используемые внутри компонента (разгружаем код компонента)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Пример
 
-## Learn More
+- **Core**
+  - Post
+    - Post.types.ts – cущность которой будем оперировать в Widgets, Services
+  - Product
+    - Product.types.ts – cущность которой будем оперировать в Widgets, Services
+- **Shared**
 
-To learn more about Next.js, take a look at the following resources:
+  - _Components_
+    - Button кнопка может делать всё что угодно
+  - _Hooks_
+  - _HOCs_
+  - _Utils_
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- **Widgets**
+  - SubscribeForm (реализуем конкретный функционал на сайте)
+- **Services**
+  - Order
+  - Products
+- **Templates**
+  - Blog
+    - Blog.tsx (содержит код объединяющий widgets, services)
+    - Blog.utils.ts (getStaticProps, getStaticPaths, getServerSideProps)
+    - Blog.{other}.{ext}
+  - Products
+  - ProductId
+- **App**
+  - Styles
